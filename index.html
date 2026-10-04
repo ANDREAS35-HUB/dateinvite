@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A little question 🐶</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#ffdce6;--heart:#ff7fa3;--paper:#fffdf4;--ink:#161616;--red:#e63b2e;--yel:#ffd23f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2a1424;--heart:#ff6a8f;--paper:#1d2b3f;--ink:#f5f1e6;--red:#ff6a5a}}
+:root[data-theme="dark"]{--bg:#2a1424;--heart:#ff6a8f;--paper:#1d2b3f;--ink:#f5f1e6;--red:#ff6a5a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);font-family:'Patrick Hand',system-ui,sans-serif;font-size:1.2rem;display:flex;align-items:center;justify-content:center;padding:20px;overflow-x:hidden}
+.wall{position:fixed;inset:0;z-index:0;pointer-events:none;background:var(--heart);opacity:.4;
+-webkit-mask-size:90px 90px;mask-size:90px 90px;animation:drift 24s linear infinite;
+-webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cpath fill='black' transform='translate(6 8) rotate(-12 12 12) scale(1.6)' d='M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z'/%3E%3Cpath fill='black' transform='translate(46 44) rotate(14 12 12) scale(1.05)' d='M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z'/%3E%3C/svg%3E");
+mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Cpath fill='black' transform='translate(6 8) rotate(-12 12 12) scale(1.6)' d='M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z'/%3E%3Cpath fill='black' transform='translate(46 44) rotate(14 12 12) scale(1.05)' d='M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z'/%3E%3C/svg%3E")}
+@keyframes drift{to{-webkit-mask-position:90px 90px;mask-position:90px 90px}}
+.panel{position:relative;z-index:1;width:100%;max-width:400px;background:var(--paper);border:4px solid var(--ink);border-radius:6px;padding:34px 22px 28px;text-align:center;box-shadow:6px 6px 0 var(--ink)}
+.pets{font-size:3.4rem;line-height:1}
+.pets small{font-size:1.8rem;margin-left:4px}
+.bubble{position:relative;border:3px solid var(--ink);border-radius:26px;padding:16px 14px;margin:18px 0 24px;font-size:1.9rem;line-height:1.15;background:var(--paper)}
+.bubble:before{content:"";position:absolute;top:-12px;left:50%;margin-left:-9px;width:18px;height:18px;background:var(--paper);border-left:3px solid var(--ink);border-top:3px solid var(--ink);transform:rotate(45deg)}
+.row{display:flex;gap:16px;justify-content:center;align-items:center;min-height:70px}
+button{font:inherit;font-size:1.3rem;color:var(--ink);border:3px solid var(--ink);border-radius:14px;padding:8px 22px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);background:var(--paper)}
+button:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+#yes,#yes2{background:var(--red);color:#fff;transition:transform .3s}
+#no{background:var(--yel);color:#161616}
+.poof{animation:poof .6s ease-in forwards;pointer-events:none}
+@keyframes poof{30%{transform:scale(1.15) rotate(-6deg)}to{transform:scale(0) rotate(30deg);opacity:0}}
+@keyframes fadeo{to{opacity:0}}
+#back{position:absolute;top:10px;left:10px;font-size:1rem;padding:2px 12px;box-shadow:2px 2px 0 var(--ink)}
+.hint{margin:14px 0 0;opacity:.8}
+.big{font-size:5.5rem;line-height:1;animation:beat 1s ease-in-out infinite}
+@keyframes beat{50%{transform:scale(1.12)}}
+.pg{display:none}
+.det{list-style:none;margin:0;padding:0;text-align:left;display:grid;gap:10px}
+.det li{background:var(--yel);color:#161616;border:3px solid var(--ink);border-radius:12px;padding:8px 14px}
+.det small{display:block;font-size:.95rem;opacity:.7}
+.note{margin:18px 0 0}
+.f{position:fixed;top:-40px;pointer-events:none;animation:fall linear forwards;z-index:9}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.f{display:none}.big,.wall{animation:none}.poof{animation:fadeo .3s forwards}}
+</style>
+</head>
+<body>
+<div class="wall" aria-hidden="true"></div>
+<main class="panel">
+  <button id="back" hidden>← Back</button>
+
+  <section class="pg" id="p1" style="display:block">
+    <div class="pets" aria-hidden="true">🐶<small>🐤</small></div>
+    <div class="bubble">Hey <span class="nm"></span>, will you go on a date with me?</div>
+    <div class="row"><button id="yes">Yes 💖</button><button id="no">No</button></div>
+    <p class="hint" id="hint">Choose wisely 🐾</p>
+  </section>
+
+  <section class="pg" id="p2">
+    <div class="big" aria-hidden="true">😍</div>
+    <div class="bubble">Do you really mean it, <span class="nm"></span>?</div>
+    <div class="row"><button id="yes2">Yes, I do 😍</button></div>
+    <p class="hint">Last chance to go back 🐾</p>
+  </section>
+
+  <section class="pg" id="p3" aria-live="polite">
+    <div class="pets" aria-hidden="true">🐶🎉<small>🐤</small></div>
+    <div class="bubble">Yay, <span class="nm"></span>! It's a date!</div>
+    <ul class="det">
+      <li><small>When</small><span id="d1"></span></li>
+      <li><small>Time</small><span id="d2"></span></li>
+      <li><small>Where</small><span id="d3"></span></li>
+    </ul>
+    <p class="note" id="d4"></p>
+  </section>
+</main>
+<script>
+// EDIT THESE
+var CFG={name:"Ventia",date:"Saturday, 10 October",time:"11:00 AM",place:"Around Glodok 🏮",note:"Wear something comfy. I'll bring the smiles. 💕"};
+var $=function(i){return document.getElementById(i)};
+document.querySelectorAll(".nm").forEach(function(e){e.textContent=CFG.name});
+$("d1").textContent=CFG.date;$("d2").textContent=CFG.time;$("d3").textContent=CFG.place;$("d4").textContent=CFG.note;
+var gone=false,pg=1,yes=$("yes"),no=$("no");
+function resetNo(){gone=false;no.className="";no.style.display="";yes.style.transform="";$("hint").textContent="Choose wisely 🐾"}
+function go(p){
+  pg=p;if(p===1)resetNo();
+  [1,2,3].forEach(function(i){$("p"+i).style.display=i===p?"block":"none"});
+  $("back").hidden=p===1;
+  if(p===3)boom();
+}
+function vanish(e){
+  e.preventDefault();if(gone)return;gone=true;
+  no.className="poof";
+  yes.style.transform="scale(1.25)";
+  setTimeout(function(){no.style.display="none";$("hint").textContent="Looks like there's only one answer 🐶"},600);
+}
+no.addEventListener("pointerenter",vanish);
+no.addEventListener("click",vanish);
+yes.addEventListener("click",function(){go(2)});
+$("yes2").addEventListener("click",function(){go(3)});
+$("back").addEventListener("click",function(){go(pg-1)});
+function boom(){
+  var h=["💖","🐾","⭐","🐤","💕"];
+  for(var i=0;i<45;i++){
+    var s=document.createElement("span");s.className="f";s.textContent=h[i%h.length];
+    s.style.left=Math.random()*100+"vw";s.style.fontSize=(16+Math.random()*20)+"px";
+    s.style.animationDuration=(2.5+Math.random()*3)+"s";s.style.animationDelay=(Math.random()*1.2)+"s";
+    document.body.appendChild(s);
+    setTimeout(function(x){x.remove()},8000,s);
+  }
+}
+</script>
+</body>
+</html>
